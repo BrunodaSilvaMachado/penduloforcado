@@ -32,10 +32,10 @@ class Pendulo(object):
 	def move(self,t):
 		at = self.a(self.x,self.v,t)
 		self.x += self.v*dt + at*dt*dt/2
-		atmp = self.a(self.x,self.v,t)
-		vtmp = self.v+(at+atmp)*dt/2 
-		atmp = self.a(self.x,vtmp,t)
-		self.v += (atmp+at)*dt/2
+		a_tmp = self.a(self.x,self.v,t)
+		v_tmp = self.v+(at+a_tmp)*dt/2 
+		a_tmp = self.a(self.x,v_tmp,t)
+		self.v += (a_tmp+at)*dt/2
 		self.e = 0.5*self.m*(self.l*self.v)**2 + (self.m*g*self.l*(1-math.cos(self.x)))
 #end
 
