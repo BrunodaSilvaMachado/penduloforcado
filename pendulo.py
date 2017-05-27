@@ -94,7 +94,7 @@ axes = plt.gca()
 axes.set_xlim([-math.pi,math.pi])
 
 plt.xticks( [-3.14, -3.14/2,0, 3.14/2, 3.14],[r'$-\pi$', r'$-\pi/2$','0', r'$+\pi/2$', r'$+\pi$'])
-plt.text(x[0],v[0],'S',color='blue')
+plt.text(x[0],v[0],'P',color='blue')
 
 nx,nv = x[remove:],v[remove:]
 plt.scatter(nx,nv, s=0.0003)
@@ -103,7 +103,7 @@ grafico(t,x,614,'x','r-',False)
 grafico(t,v,615,'y','b-',False)
 grafico(t,e,616,'E','g-',True)
 plt.savefig(_imagName,dpi=96)
-plt.show()
+#plt.show()
 
 print 'concluido'
 #end
