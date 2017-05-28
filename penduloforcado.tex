@@ -1,4 +1,4 @@
-\documentclass[dvipsnames,a4paper,12pt]{article}
+\documentclass[dvipsnames,a4paper,11pt]{article}
 \usepackage[brazil]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8x]{inputenc}
@@ -94,11 +94,11 @@ Introduzindo ao pêndulo amortecido o torque de uma força periódica $F = F_0\s
 	\ddot{\theta} = A\sin(\omega_D{t}) -\gamma\dot{\theta} -\omega_{0}^2\sin\theta
 \end{equation}
 
-Onde A é o parâmetro de força externa, gama o coeficiente de amortecimento e omega e a frequência angular.
+Onde A é o parâmetro de força externa, gama o coeficiente de amortecimento e omega e a frequência angular natural.
 
 \section{Uma possível solução para o pendulo forçado}
 
-Na seção anterior encontramos a equação do movimento do pendulo forcado, porem podemos ver que a equação não é linear devido o termo trigonométrico na expressão. Porem se considerarmos o termo $\omega_{0}^2\sin\theta \approx \omega_{0}^2\theta$ podemos encontrar uma solução analita para o nosso problema.
+Na seção anterior encontramos a equação do movimento do pendulo forcado, entretanto podemos ver que a equação não é linear devido o termo trigonométrico na expressão. Porem se considerarmos o termo $\omega_{0}^2\sin\theta \approx \omega_{0}^2\theta$ podemos encontrar uma solução analita para o nosso problema.
 
 Assim temos:
 \begin{equation}
@@ -109,8 +109,8 @@ no plano complexo
 
 \[\ddot{Z} = Ae^{\omega_D{t}} -\gamma\dot{Z} -\omega_{0}^2Z\]
 
-A equação homogênea $\ddot{Z} = Ae^{\omega_D{t}} -\gamma\dot{Z} -\omega_{0}^2Z$ tem como solução um dos 3 regimes obtidos de um pendulo amortecimento (subcrítico, crítico e supercrítico). A existência dessa solução é por um certo intervalo de tempo, uma vez que o amortecimento com passar do tempo levara ao desaparecimento dessa solução,por isso essa solução é chamada de transiente.
-Precisamos agora encontrar uma particular da não homogênea e que não evam se com o tempo – uma solução estacionária.
+A equação homogênea $\ddot{Z} = Ae^{\omega_D{t}} -\gamma\dot{Z} -\omega_{0}^2Z$ tem como solução um dos 3 regimes obtidos de um pendulo amortecimento (subcrítico, crítico e supercrítico). A existência dessa solução é por um certo intervalo de tempo, uma vez que o amortecimento com passar do tempo levara ao desaparecimento dessa solução, por isso ela é chamada de transiente.
+Precisamos agora encontrar uma particular da não homogênea e que não "desapareça"  com o passar do tempo – uma solução estacionária.
 
 Tomando $Z(t) = Z_0e^{i\omega{t}}$ e substituindo na equação anterior, teremos
 
@@ -137,7 +137,7 @@ Assim finalmente obtemos:
 
 que é a solução estacionaria do oscilador harmônico forçado que deve ser utilizado juntamente com as equações (4) e (5)
 
-Porem nós estamos interessados no caso em que $\sin\theta > \theta$ o que faz a equação acima não ser útil nesse momento. Voltando ao caso em que a nossa equação na é linear (1) podemos obter a sua solução através de método numérico, utilizando o método de verlet chegamos a seguinte solução:
+Porem nós estamos interessados no caso em que $\sin\theta \neq \theta$ o que faz a equação acima não ser útil nesse momento. Voltando ao caso em que a nossa equação não é linear (1) podemos obter a sua solução através de método numérico, utilizando o método de verlet chegamos a seguinte solução:
 
 \paragraph{}
 \textit{Código em Python}
@@ -157,11 +157,49 @@ Porem nós estamos interessados no caso em que $\sin\theta > \theta$ o que faz a
 
 \section{Resultados}
 
+Na seção anterior vimos a existência de fatores com seno e cosseno torna o sistema não-linear. Essas duas características podem apresentar comportamento periódico ou caótico.
+
+O comportamento periódico, com atrator do tipo ciclo limite, é atingido após um intervalo irregular, chamado transiente.
+
+\begin{center}
+	\includegraphics[width=6.24in,height=7.68in,keepaspectratio = false]{image1.png}
+	
+	\scriptsize Figura 2. Pendulo amortecido em movimento com uma força externa com A = 0.2,$\omega_f$ = 2/3 $\gamma$ = 0.5,l = 10. 
+	
+\end{center}
+
+\begin{center}
+	\includegraphics[width=6.24in,height=7.68in,keepaspectratio = false]{image2.png}
+	
+	\scriptsize Figura 3. Pendulo amortecido em movimento com uma força externa com A = 0.75,$\omega_f$ = 2/3 $\gamma$ = 0.5,l = 10. 
+	
+\end{center}
+
+Mesmo partindo com A distintos o sistema se estabiliza em um ciclo limite, tanto na figura 1 como na 2, que é o atrator do sistema. Nesse caso o comportamento e dito como sistema periódico. 
+
+O comportamento caótico é caracterizado pela grande sensibilidade às condições iniciais. O atrator não manifesta nenhuma regularidade:\textbf{ é estranho}.
+
+\begin{center}
+	\includegraphics[width=6.24in,height=7.68in,keepaspectratio = false]{image3.png}
+	
+	\scriptsize Figura 4. Pendulo amortecido em movimento com uma força externa com A = 1.25,$\omega_f$ = 2/3 $\gamma$ = 0.5,l = 10, com \textbf{posição inicial de x = $\pi/6$}. 
+	
+\end{center}
+
+\begin{center}
+	\includegraphics[width=6.24in,height=7.68in,keepaspectratio = false]{image6.png}
+	
+	\scriptsize Figura 5. Pendulo amortecido em movimento com uma força externa com A = 1.25,$\omega_f$ = 2/3 $\gamma$ = 0.5,l = 10, com \textbf{posição inicial de x = $\pi/6 - 10e-4$}. 
+	
+\end{center}
+
+Devido a essa grande sensibilidade, dois pontos inicialmente próximos,em nosso casso a distancia entre os dois e de apenas míseros 10e-4m, estarão muito distantes após algum tempo. Esse efeito nos permite afirmar que os sistemas com comportamento caótico são imprevisíveis, ou seja, qualquer tentativa de previsão futura estará comprometida por pequenas imprecisões nas condições iniciais
 
 
 \section{Conclus\~ao}
 
-
+O pendulo forçado pode apresentar comportamento caótico para certos parâmetros em nosso caso para A > 1 ele não se estabiliza num ciclo limite: a trajetória no espaço de fase, que é tridimensional, nunca se cruza, para o caso de A < 1 o sistema aparenta se manter periódico. 
+Em regime caótico apresenta uma grande sensibilidade às condições iniciais: pontos inicialmente próximos se afastam rapidamente. Essas características se aplicam a todos os sistemas com comportamento caótico.
 
 \section{Referencia}
 
